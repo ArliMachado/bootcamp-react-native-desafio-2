@@ -37,6 +37,11 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: colors.light,
   },
+
+  loading: {
+    color: colors.dark,
+    marginTop: metrics.baseMargin * 2,
+  },
 });
 
 export default styles;
