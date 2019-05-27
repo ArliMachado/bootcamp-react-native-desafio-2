@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
 
   loading: {
     color: colors.dark,
-    marginTop: metrics.baseMargin * 2,
+    // marginTop: metrics.baseMargin,
+    marginLeft: metrics.baseMargin,
   },
 
   error: {
