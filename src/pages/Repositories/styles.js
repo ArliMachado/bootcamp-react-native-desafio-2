@@ -42,6 +42,12 @@ const styles = StyleSheet.create({
     color: colors.dark,
     marginTop: metrics.baseMargin * 2,
   },
+
+  error: {
+    color: colors.danger,
+    textAlign: 'center',
+    marginTop: metrics.baseMargin,
+  },
 });
 
 export default styles;
