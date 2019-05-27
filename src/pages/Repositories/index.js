@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 import {
-  View, Text, TextInput, TouchableOpacity, ActivityIndicator,
+  View, Text, TextInput, TouchableOpacity, ActivityIndicator, FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Header from '~/components/Header';
 import styles from './styles';
 import api from '~/services/api';
+import RepositoryItem from './RepositoryItem';
 
 export default class Repositories extends Component {
   state = {
@@ -36,9 +37,17 @@ export default class Repositories extends Component {
     }
   };
 
+  renderListItem = ({ item }) => <RepositoryItem repository={item} />;
+
   renderList = () => {
     const { repositories } = this.state;
-    return repositories.map(rep => <Text key={rep.id}>{rep.full_name}</Text>);
+    return (
+      <FlatList
+        data={repositories}
+        keyExtractor={item => String(item.id)}
+        renderItem={this.renderListItem}
+      />
+    );
   };
 
   addRepository = () => (
