@@ -15,7 +15,9 @@ const ListItem = ({ data, navigateTo }) => (
     </View>
 
     <View style={styles.repositoryInfo}>
-      <Text style={styles.repositoryName}>{data.title}</Text>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.repositoryName}>
+        {data.title}
+      </Text>
       <Text style={styles.OrganizationName}>{data.subTitle}</Text>
     </View>
 

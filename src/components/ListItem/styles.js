@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: metrics.baseMargin,
   },
   navigateIcon: {
     color: colors.regular,
