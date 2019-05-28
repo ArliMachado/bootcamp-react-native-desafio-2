@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import {
+  View, Text, FlatList, ActivityIndicator,
+} from 'react-native';
 
 import Header from '~/components/Header';
 import styles from './styles';
@@ -66,6 +68,11 @@ export default class Issues extends Component {
     return (
       <View style={styles.container}>
         <Header title="Issues" navigateTo={this.goToRepositories} />
+        <View style={styles.tabContent}>
+          <Text>Todas</Text>
+          <Text>Abertas</Text>
+          <Text>Fechadas</Text>
+        </View>
         <View>
           {loading ? <ActivityIndicator size={24} style={styles.loading} /> : this.renderList()}
         </View>
