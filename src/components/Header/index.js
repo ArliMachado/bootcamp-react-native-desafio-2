@@ -10,15 +10,16 @@ import styles from './styles';
 
 const goTo = navigateTo => (
   <TouchableOpacity onPress={navigateTo}>
-    <Icon name="angle-left" size={24} style={styles.navigateIcon} />
+    <Icon name="angle-left" size={26} style={styles.navigateIcon} />
   </TouchableOpacity>
 );
 
 const Header = ({ title, navigateTo }) => (
   <View style={styles.container}>
     <StatusBar barStyle="dark-content" />
-    {goTo(navigateTo)}
+    {title === 'Issues' ? goTo(navigateTo) : <View />}
     <Text style={styles.title}>{title}</Text>
+    <View />
   </View>
 );
 
