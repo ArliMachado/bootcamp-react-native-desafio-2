@@ -17,21 +17,26 @@ export default class Repositories extends Component {
     repositories: [],
     repositoryInput: '',
     loading: false,
+    refreshing: false,
     error: false,
   };
 
-  async componentDidMount() {
-    this.setState({ loading: true });
+  componentDidMount() {
+    this.loadRepositories();
+  }
+
+  loadRepositories = async () => {
+    this.setState({ refreshing: true });
     const data = await AsyncStorage.getItem(REPOSITORIES_STORAGE);
 
     if (data) {
-      this.setState({ repositories: JSON.parse(data), loading: false });
+      this.setState({ repositories: JSON.parse(data), loading: false, refreshing: false });
     }
-    this.setState({ loading: false, error: false });
-  }
+    this.setState({ loading: false, refreshing: false, error: false });
+  };
 
   getRepository = async () => {
-    const { repositories, repositoryInput, error } = this.state;
+    const { repositories, repositoryInput } = this.state;
 
     try {
       this.setState({ loading: true });
@@ -63,12 +68,14 @@ export default class Repositories extends Component {
   renderListItem = ({ item }) => <RepositoryItem repository={item} />;
 
   renderList = () => {
-    const { repositories } = this.state;
+    const { repositories, refreshing } = this.state;
     return (
       <FlatList
         data={repositories}
         keyExtractor={item => String(item.id)}
         renderItem={this.renderListItem}
+        onRefresh={this.loadRepositories}
+        refreshing={refreshing}
       />
     );
   };
