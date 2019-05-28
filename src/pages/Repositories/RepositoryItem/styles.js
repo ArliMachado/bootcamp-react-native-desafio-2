@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     padding: metrics.basePadding,
     marginHorizontal: metrics.baseMargin * 2,
-    marginTop: metrics.baseMargin * 2,
+    marginTop: metrics.baseMargin,
   },
   imageContainer: {
     marginRight: metrics.baseMargin * 2,
