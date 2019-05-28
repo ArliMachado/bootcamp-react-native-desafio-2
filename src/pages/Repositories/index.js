@@ -9,7 +9,7 @@ import Header from '~/components/Header';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './styles';
 import api from '~/services/api';
-import RepositoryItem from './RepositoryItem';
+import ListItem from '~/components/ListItem';
 
 const REPOSITORIES_STORAGE = '@GoNativeDesafio2:repositories';
 export default class Repositories extends Component {
@@ -44,6 +44,7 @@ export default class Repositories extends Component {
       const { data } = await api.get(`/repos/${repositoryInput}`);
       const repo = {
         id: data.id,
+        full_name: data.full_name,
         name: data.name,
         organization: data.organization.login,
         avatar_url: data.owner.avatar_url,
@@ -65,7 +66,14 @@ export default class Repositories extends Component {
     }
   };
 
-  renderListItem = ({ item }) => <RepositoryItem repository={item} />;
+  goToIssues = async (item) => {
+    const { navigation } = this.props;
+    navigation.navigate('Issues', {
+      fullName: item.full_name,
+    });
+  };
+
+  renderListItem = ({ item }) => <ListItem data={item} navigateTo={() => this.goToIssues(item)} />;
 
   renderList = () => {
     const { repositories, refreshing } = this.state;
@@ -112,7 +120,6 @@ export default class Repositories extends Component {
           <View style={styles.lineStyle} />
         </View>
         {this.renderList()}
-        <View />
       </View>
     );
   }
