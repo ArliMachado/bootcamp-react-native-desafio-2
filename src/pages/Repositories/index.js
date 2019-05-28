@@ -98,7 +98,7 @@ export default class Repositories extends Component {
     const { repositoryInput, loading, error } = this.state;
     return (
       <View style={styles.container}>
-        <Header title="Repositórios" />
+        <Header title="Repositórios" navigateTo={() => {}} />
         {error && <Text style={styles.error}>Repositório inexistente</Text>}
         <View style={styles.formContainer}>
           <View style={styles.form}>

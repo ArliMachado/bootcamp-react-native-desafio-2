@@ -43,6 +43,11 @@ export default class Issues extends Component {
 
   renderListItem = ({ item }) => <Listitem data={item} navigateTo={() => {}} />;
 
+  goToRepositories = async () => {
+    const { navigation } = this.props;
+    navigation.navigate('Repositories');
+  };
+
   renderList = () => {
     const { data, refreshing } = this.state;
     return (
@@ -60,7 +65,7 @@ export default class Issues extends Component {
     const { loading } = this.state;
     return (
       <View style={styles.container}>
-        <Header title="Issues" />
+        <Header title="Issues" navigateTo={this.goToRepositories} />
         <View>
           {loading ? <ActivityIndicator size={24} style={styles.loading} /> : this.renderList()}
         </View>
