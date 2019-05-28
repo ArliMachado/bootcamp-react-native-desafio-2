@@ -15,8 +15,8 @@ const ListItem = ({ data, navigateTo }) => (
     </View>
 
     <View style={styles.repositoryInfo}>
-      <Text style={styles.repositoryName}>{data.name}</Text>
-      <Text style={styles.OrganizationName}>{data.organization}</Text>
+      <Text style={styles.repositoryName}>{data.title}</Text>
+      <Text style={styles.OrganizationName}>{data.subTitle}</Text>
     </View>
 
     <View style={styles.navigate}>

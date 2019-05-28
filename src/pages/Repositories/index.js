@@ -21,9 +21,9 @@ export default class Repositories extends Component {
     error: false,
   };
 
-  componentDidMount() {
+  componentDidMount = async () => {
     this.loadRepositories();
-  }
+  };
 
   loadRepositories = async () => {
     this.setState({ refreshing: true });
@@ -45,8 +45,8 @@ export default class Repositories extends Component {
       const repo = {
         id: data.id,
         full_name: data.full_name,
-        name: data.name,
-        organization: data.organization.login,
+        title: data.name,
+        subTitle: data.organization.login,
         avatar_url: data.owner.avatar_url,
       };
 
