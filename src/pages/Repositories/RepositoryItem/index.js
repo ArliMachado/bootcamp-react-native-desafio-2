@@ -18,7 +18,7 @@ const RepositoryItem = ({ repository }) => (
     </View>
 
     <View style={styles.navigate}>
-      <Icon name="angle-right" size={36} style={styles.navigateIcon} />
+      <Icon name="angle-right" size={24} style={styles.navigateIcon} />
     </View>
   </View>
 );
