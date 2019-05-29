@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  View, Text, FlatList, ActivityIndicator,
+  View, Text, FlatList, ActivityIndicator, TouchableOpacity,
 } from 'react-native';
 
 import Header from '~/components/Header';
@@ -15,6 +15,21 @@ export default class Issues extends Component {
     data: [],
     refreshing: true,
     loading: true,
+    tabs: [
+      { id: 1, name: 'Todas', isActive: false },
+      {
+        id: 2,
+        name: 'Abertas',
+        status: 'open',
+        isActive: false,
+      },
+      {
+        id: 3,
+        name: 'Fechadas',
+        status: 'closed',
+        isActive: false,
+      },
+    ],
   };
 
   static propTypes = {
@@ -63,15 +78,24 @@ export default class Issues extends Component {
     );
   };
 
+  selectTab = (tab) => {
+    const { tabs } = this.state;
+    const newTab = [...tabs];
+    newTab.forEach(t => (t.id === tab.id ? (t.isActive = true) : (t.isActive = false)));
+    this.setState({ tabs: newTab });
+  };
+
   render() {
-    const { loading } = this.state;
+    const { loading, tabs } = this.state;
     return (
       <View style={styles.container}>
         <Header title="Issues" navigateTo={this.goToRepositories} />
         <View style={styles.tabContent}>
-          <Text>Todas</Text>
-          <Text>Abertas</Text>
-          <Text>Fechadas</Text>
+          {tabs.map(tab => (
+            <TouchableOpacity key={tab.id} onPress={() => this.selectTab(tab)}>
+              <Text style={styles.tabSelected(tab.isActive)}>{tab.name}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
         <View>
           {loading ? <ActivityIndicator size={24} style={styles.loading} /> : this.renderList()}

@@ -7,14 +7,16 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lighter,
   },
   tabContent: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: metrics.basePadding,
+    padding: metrics.basePadding / 2,
     marginHorizontal: metrics.baseMargin * 2,
     marginTop: metrics.baseMargin,
     backgroundColor: colors.light,
+  },
+  tabSelected(isSelected) {
+    return isSelected ? { fontWeight: 'bold' } : { fontWeight: 'normal' };
   },
 });
 
