@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  View, Text, FlatList, ActivityIndicator, TouchableOpacity,
+  View, Text, FlatList, ActivityIndicator, TouchableOpacity, Linking,
 } from 'react-native';
 
 import Header from '~/components/Header';
@@ -53,16 +53,23 @@ export default class Issues extends Component {
       title: issue.title,
       subTitle: issue.user.login,
       avatar_url: issue.user.avatar_url,
+      url: issue.html_url,
     }));
 
     this.setState({ data: issues, refreshing: false, loading: false });
   };
 
-  renderListItem = ({ item }) => <Listitem data={item} navigateTo={() => {}} />;
+  renderListItem = ({ item }) => (
+    <Listitem data={item} navigateTo={() => this.openUrlIssue(item)} />
+  );
 
   goToRepositories = async () => {
     const { navigation } = this.props;
     navigation.navigate('Repositories');
+  };
+
+  openUrlIssue = (issue) => {
+    Linking.openURL(issue.url);
   };
 
   renderList = () => {
@@ -78,11 +85,26 @@ export default class Issues extends Component {
     );
   };
 
-  selectTab = (tab) => {
+  selectTab = async (tab) => {
     const { tabs } = this.state;
     const newTab = [...tabs];
-    newTab.forEach(t => (t.id === tab.id ? (t.isActive = true) : (t.isActive = false)));
-    this.setState({ tabs: newTab });
+    let filter = '';
+    newTab.forEach((t) => {
+      if (t.id === tab.id) {
+        t.isActive = true;
+        if (t.name !== 'Todas') {
+          filter = `?state=${t.status}`;
+        }
+      } else {
+        t.isActive = false;
+      }
+      return t;
+    });
+    this.setState({ tabs: newTab, loading: true });
+
+    await this.loadIssues(filter);
+
+    this.setState({ loading: false });
   };
 
   render() {
