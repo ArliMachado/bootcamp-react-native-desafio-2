@@ -39,7 +39,8 @@ export default class Issues extends Component {
   };
 
   componentWillMount() {
-    this.loadIssues();
+    const { tabs } = this.state;
+    this.selectTab(tabs[0]);
   }
 
   loadIssues = async (filter = '') => {
